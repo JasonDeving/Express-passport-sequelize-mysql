@@ -16,7 +16,7 @@ var port = process.env.PORT || 3000
 app.use(cookieParser())
 app.use(session({ secret: '4564f6s4fdsfdfd', resave: false, saveUninitialized: false }))
 
-app.use('/styles', express.static(__dirname + '/styles'))
+app.use(express.static('app/public'));
 
 app.use(flash())
 app.use(function(req, res, next) {
