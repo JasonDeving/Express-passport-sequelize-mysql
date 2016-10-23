@@ -43,7 +43,7 @@ You can then access the application on `http://localhost:3000`.
 Available pages:
 * Log in on `http://localhost:3000`
 * Sign up on `http://localhost:3000/signup`
-* Dashboard [requires to be logged in] on `http://localhost:8080/dashboard`
+* Dashboard [requires to be logged in] on `http://localhost:3000/dashboard`
 * Log out on `http://localhost:3000/logout`
 
 ## Run the tests
