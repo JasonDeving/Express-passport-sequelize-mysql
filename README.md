@@ -1,43 +1,44 @@
 # Express Passport Sequelize MySQL Example
 
-This repository demonstrates a basic authentication flow using **Express**, **Passport** and **Sequelize**. It stores user data in a MySQL database and renders pages with **express-handlebars**.
+This project demonstrates a simple authentication flow using [Express](https://expressjs.com/), [Passport](http://www.passportjs.org/), and [Sequelize](https://sequelize.org/). It stores user information in a MySQL database and renders pages with Handlebars templates.
 
-## Requirements
+## Prerequisites
 
 - Node.js 18 or later
-- A running MySQL server
+- A running MySQL instance
 
-## Installation
+## Setup
 
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Configure the database connection in `app/sequelize.js`.
-   The default configuration connects to a local `login` database as user `root` with no password. Adjust it to match your environment.
-3. Populate the database and create a default user (`user`/`user`):
+2. Adjust the database settings in `app/sequelize.js` to match your environment.
+3. Create the database schema and a default user:
    ```bash
    node setup.js
    ```
 
-## Running the application
+## Running the Server
 
-Start the server with:
+Start the application with:
 ```bash
 npm start
 ```
-Visit `http://localhost:3000` to see the login page. The main routes are:
+Then open `http://localhost:3000` in your browser.
 
-- `/` – log in
-- `/signup` – registration form
-- `/forgot` – request password reset (link logged to console)
+## Application Routes
+
+- `/` – login form
+- `/signup` – user registration
+- `/forgot` – request password reset (token printed to console)
 - `/reset/:token` – set a new password
-- `/dashboard` – protected dashboard (requires authentication)
-- `/logout` – end the session
+- `/dashboard` – protected dashboard (requires login)
+- `/logout` – sign out
 
-## Testing
+## Tests
 
-End‑to‑end tests using Nightwatch are located in the `tests` folder. Configure Selenium in `nightwatch.json`, run the server and then execute:
+Nightwatch end‑to‑end tests are located in the `tests` directory. To run them, make sure Selenium is configured in `nightwatch.json` and execute:
 ```bash
 npx nightwatch
 ```
