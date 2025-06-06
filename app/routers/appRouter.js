@@ -1,5 +1,6 @@
 var passport = require('passport'),
-    signupController = require('../controllers/signupController.js')
+    signupController = require('../controllers/signupController.js'),
+    passwordResetController = require('../controllers/passwordResetController.js')
 
 module.exports = function(express) {
   var router = express.Router()
@@ -13,6 +14,11 @@ module.exports = function(express) {
   
   router.get('/signup', signupController.show)
   router.post('/signup', signupController.signup)
+
+  router.get('/forgot', passwordResetController.showForgot)
+  router.post('/forgot', passwordResetController.handleForgot)
+  router.get('/reset/:token', passwordResetController.showReset)
+  router.post('/reset/:token', passwordResetController.handleReset)
 
   router.post('/login', passport.authenticate('local', {
       successRedirect: '/dashboard',

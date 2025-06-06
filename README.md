@@ -30,6 +30,8 @@ Visit `http://localhost:3000` to see the login page. The main routes are:
 
 - `/` – log in
 - `/signup` – registration form
+- `/forgot` – request password reset (link logged to console)
+- `/reset/:token` – set a new password
 - `/dashboard` – protected dashboard (requires authentication)
 - `/logout` – end the session
 
