@@ -26,6 +26,12 @@ var attributes = {
   },
   salt: {
     type: Sequelize.STRING
+  },
+  resetToken: {
+    type: Sequelize.STRING
+  },
+  resetTokenExpires: {
+    type: Sequelize.DATE
   }
 }
 
