@@ -30,8 +30,24 @@ Visit `http://localhost:3000` to see the login page. The main routes are:
 
 - `/` – log in
 - `/signup` – registration form
+- `/forgot` – request password reset
+- `/reset/:token` – set a new password
 - `/dashboard` – protected dashboard (requires authentication)
 - `/logout` – end the session
+
+### Email configuration
+
+If you set the following environment variables, a reset link will be emailed to
+users who request a password reset:
+
+- `MAIL_HOST` – SMTP server hostname
+- `MAIL_PORT` – SMTP port (defaults to 587)
+- `MAIL_USER` – SMTP username
+- `MAIL_PASS` – SMTP password
+- `MAIL_FROM` – address to send emails from (defaults to `MAIL_USER`)
+
+If these variables are not configured, the reset link is printed to the server
+console instead.
 
 ## Testing
 

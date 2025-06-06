@@ -7,8 +7,11 @@ module.exports = function(callback) {
     // password: user
     Model.User.create({
       username: 'user',
+      email: 'user@example.com',
       password: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O9D93HKwPKFNWBqiiuc/IoMtIurRCT36',
-      salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
+      salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O',
+      resetToken: null,
+      resetTokenExpires: null
     }).then(callback)
   })
 }
