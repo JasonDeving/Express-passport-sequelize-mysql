@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 const Model = require('../model/models.js');
 
 module.exports.showForgot = function(req, res) {
@@ -33,7 +34,7 @@ module.exports.showReset = function(req, res) {
   Model.User.findOne({
     where: {
       resetToken: req.params.token,
-      resetTokenExpires: { $gt: new Date() }
+      resetTokenExpires: { [Op.gt]: new Date() }
     }
   }).then(function(user) {
     if (!user) {
@@ -58,7 +59,7 @@ module.exports.handleReset = function(req, res) {
   Model.User.findOne({
     where: {
       resetToken: req.params.token,
-      resetTokenExpires: { $gt: new Date() }
+      resetTokenExpires: { [Op.gt]: new Date() }
     }
   }).then(function(user) {
     if (!user) {

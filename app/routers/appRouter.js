@@ -9,7 +9,7 @@ module.exports = function(express) {
     if (req.isAuthenticated())
       return next()
     req.flash('error', 'You have to be logged in to access the page.')
-    res.redirect('/')
+    return res.redirect('/')
   }
   
   router.get('/signup', signupController.show)
@@ -35,8 +35,13 @@ module.exports = function(express) {
   })
 
   router.get('/logout', function(req, res) {
-    req.logout()
-    res.redirect('/')
+    req.logout(function(err) {
+      if (err) {
+        req.flash('error', 'Logout failed.')
+        return res.redirect('/')
+      }
+      res.redirect('/')
+    })
   })
 
   return router

@@ -12,12 +12,12 @@ module.exports.signup = function(req, res) {
   
   if (!username || !password || !password2) {
     req.flash('error', "Please, fill in all the fields.")
-    res.redirect('signup')
+    return res.redirect('/signup')
   }
   
   if (password !== password2) {
     req.flash('error', "Please, enter the same password twice.")
-    res.redirect('signup')
+    return res.redirect('/signup')
   }
   
   var salt = bcrypt.genSaltSync(10)

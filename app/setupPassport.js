@@ -18,13 +18,15 @@ module.exports = function(app) {
           return done(null, false, { message: 'Incorrect credentials.' })
         }
         
-        var hashedPassword = bcrypt.hashSync(password, user.salt)
-        
-        if (user.password === hashedPassword) {
+        var isValid = bcrypt.compareSync(password, user.password)
+
+        if (isValid) {
           return done(null, user)
         }
         
         return done(null, false, { message: 'Incorrect credentials.' })
+      }).catch(function (error) {
+        return done(error)
       })
     }
   ))
@@ -40,10 +42,12 @@ module.exports = function(app) {
       }
     }).then(function (user) {
       if (user == null) {
-        done(new Error('Wrong user id.'))
+        return done(new Error('Wrong user id.'))
       }
       
       done(null, user)
+    }).catch(function (error) {
+      done(error)
     })
   })
 }
