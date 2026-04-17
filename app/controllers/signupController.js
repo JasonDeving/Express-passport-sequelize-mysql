@@ -6,18 +6,23 @@ module.exports.show = function(req, res) {
 }
 
 module.exports.signup = function(req, res) {
-  var username = req.body.username
+  var username = (req.body.username || '').trim()
   var password = req.body.password
   var password2 = req.body.password2
   
   if (!username || !password || !password2) {
     req.flash('error', "Please, fill in all the fields.")
-    res.redirect('signup')
+    return res.redirect('/signup')
   }
   
   if (password !== password2) {
     req.flash('error', "Please, enter the same password twice.")
-    res.redirect('signup')
+    return res.redirect('/signup')
+  }
+
+  if (password.length < 8) {
+    req.flash('error', 'Password must be at least 8 characters long.')
+    return res.redirect('/signup')
   }
   
   var salt = bcrypt.genSaltSync(10)

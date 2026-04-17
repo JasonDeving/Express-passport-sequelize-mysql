@@ -12,9 +12,34 @@ var express = require('express'),
     jsonParser = bodyParser.json()
 
 var port = process.env.PORT || 3000
+var isProduction = process.env.NODE_ENV === 'production'
+var sessionSecret = process.env.SESSION_SECRET
+
+if (!sessionSecret) {
+  sessionSecret = 'development-only-secret-change-me'
+  console.warn('SESSION_SECRET is not set. Falling back to an insecure development secret.')
+}
 
 app.use(cookieParser())
-app.use(session({ secret: '4564f6s4fdsfdfd', resave: false, saveUninitialized: false }))
+app.use(session({
+  name: 'sid',
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: isProduction,
+    maxAge: 1000 * 60 * 60 * 12 // 12 hours
+  }
+}))
+
+app.use(function(req, res, next) {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('Referrer-Policy', 'no-referrer')
+  next()
+})
 
 app.use(express.static('app/public'));
 
